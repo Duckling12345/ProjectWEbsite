@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group1-it002 Hosting Service</title>
+    <link rel="stylesheet" href="../css/serverJava.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <a href="../html/landingPage.html"><img src="../images/group1-it002-logo.png" alt="Logo" class="logo"></a>
+        <nav class="nav">
+            <ul class="menu">
+                <li class="dropdown">
+                    <button class="dropbtn">Minecraft Server</button>
+                    <div class="dropdown-content">
+                        <a href="../html/serverJava.html">Java</a>
+                        <a href="../html/serverBedrock.html">Bedrock</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <button class="dropbtn">Hosting</button>
+                    <div class="dropdown-content">
+                      <a href="../html/hostingWeb.html">Web Hosting</a>
+                      <a href="../html/hostingCloud.html">Cloud Hosting</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <button class="dropbtn">Discord Bot Hosting</button>
+                    <div class="dropdown-content">
+                      <a href="../html/hostingBot.html">Discord Bot</a>
+                    </div>
+                </li>
+            </ul>
+            
+            <!-- Update Login Button to Allow for Dropdown -->
+            <div class="login-button">
+                <a href="../html/auth.html" class="login-button">Login</a>
+            </div>
+        </nav>  
+    </div>
+
+    <!-- Welcome Section as a Div -->
+    <div class="welcome">
+        <div class="features-section">
+            <img src="../images/bedrock-logo.webp" alt="Hosting service graphic">
+            <ul>
+                <h1>Group1-it002 Bedrock Server</h1>
+                <li>Your one-stop solution for hosting websites, game servers, and even Discord bots.</li>
+                <li>Affordable Pricing</li>
+                <li>High Performance Servers</li>
+                <li>Scalable Resources</li>
+                <li>Easy Setup</li>
+                <li>24/7 Customer Support</li>
+            </ul>
+        </div>
+    </div>
+
+    <!--- Pricing Vanilla Section --->
+    <div class="pricing-section">
+        <div class="duration-buttons">
+            <button onclick="updatePrices('monthly')">Monthly</button>
+            <button onclick="updatePrices('quarterly')">Quarterly</button>
+            <button onclick="updatePrices('semi-annually')">Semi-Annually</button>
+            <button onclick="updatePrices('annually')">Annually</button>
+          </div>
+        <div class="header">
+          <h2>PLAY <span class="highlight"> VANILLA</span></h2>
+          <br><p>Ideal for groups looking to run a small server with a few plugins.</p>
+        </div>
+        <div class="rounded-box-vanilla">
+            <div class="pricing-cards">
+              <div class="card" id="dirt">
+                <div class="badge">Dirt</div>
+                <h3>2+ Slots | 1GB RAM</h3>
+                <p class="original-price">$3.99 USD</p>
+                <p class="discounted-price" data-monthly="2.99">$2.99 USD <span class="per-month">/monthly</span></p>
+                <button class="add-to-cart">Add To Cart</button>
+              </div>
+              <div class="card" id="sand">
+                <div class="badge">Sand</div>
+                <h3>4+ Slots | 2GB RAM</h3>
+                <p class="original-price">$7.99 USD</p>
+                <p class="discounted-price" data-monthly="5.99">$5.99 USD <span class="per-month">/monthly</span></p>
+                <button class="add-to-cart">Add To Cart</button>
+              </div>
+              <div class="card popular" id="cobblestone">
+                <div class="badge">Cobblestone</div>
+                <h3>6+ Slots | 3GB RAM</h3>
+                <p class="original-price">$11.99 USD</p>
+                <p class="discounted-price" data-monthly="8.99">$8.99 USD <span class="per-month">/monthly</span></p>
+                <button class="add-to-cart">Add To Cart</button>
+              </div>
+              <div class="card" id="iron">
+                <div class="badge">Iron</div>
+                <h3>10+ Slots | 4GB RAM</h3>
+                <p class="original-price">$15.99 USD</p>
+                <p class="discounted-price" data-monthly="11.99">$11.99 USD <span class="per-month">/monthly</span></p>
+                <button class="add-to-cart">Add To Cart</button>
+              </div>
+            </div>
+          </div>
+        <div class="footer-info">
+          <p>Included on all servers:</p>
+          <div class="features">
+            <span>Automatic Backups</span>
+            <span>Instant Setup</span>
+            <span>Realtime Console</span>
+          </div>
+        </div>
+      </div>
+
+      <!--- Pricing Modpack Section --->
+    <div class="pricing-section">
+        <div class="header">
+          <h2>PLAY <span class="highlight"> MODPACKS </span></h2>
+          <p>Ideal for groups looking to run a small server with a few plugins.</p>
+        </div>
+        <div class="rounded-box-modpacks">
+            <div class="pricing-cards">
+              <div class="card" id="dirt">
+                <div class="badge">Dirt</div>
+                <h3>2+ Slots | 1GB RAM</h3>
+                <p class="original-price">$3.99 USD</p>
+                <p class="discounted-price" data-monthly="2.99">$2.99 USD <span class="per-month">/monthly</span></p>
+                <button class="add-to-cart">Add To Cart</button>
+              </div>
+              <div class="card" id="sand">
+                <div class="badge">Sand</div>
+                <h3>4+ Slots | 2GB RAM</h3>
+                <p class="original-price">$7.99 USD</p>
+                <p class="discounted-price" data-monthly="5.99">$5.99 USD <span class="per-month">/monthly</span></p>
+                <button class="add-to-cart">Add To Cart</button>
+              </div>
+              <div class="card popular" id="cobblestone">
+                <div class="badge">Cobblestone</div>
+                <h3>6+ Slots | 3GB RAM</h3>
+                <p class="original-price">$11.99 USD</p>
+                <p class="discounted-price" data-monthly="8.99">$8.99 USD <span class="per-month">/monthly</span></p>
+                <button class="add-to-cart">Add To Cart</button>
+              </div>
+            </div>
+          </div>
+        <div class="footer-info">
+          <p>Included on all servers:</p>
+          <div class="features">
+            <span>Modpack Installer</span>
+            <span>Scheduled Tasks</span>
+            <span>Instant Setup</span>
+          </div>
+        </div>
+      </div>      
+
+            <!--- Pricing Community Server Section --->
+    <div class="pricing-section">
+        <div class="header">
+          <h2>PLAY <span class="highlight"> COMMUNITY SERVER </span></h2>
+          <p>Ideal for groups looking to run a small server with a few plugins.</p>
+        </div>
+        <div class="rounded-box-community">
+            <div class="pricing-cards">
+              <div class="card" id="dirt">
+                <div class="badge">Dirt</div>
+                <h3>2+ Slots | 1GB RAM</h3>
+                <p class="original-price">$3.99 USD</p>
+                <p class="discounted-price" data-monthly="2.99">$2.99 USD <span class="per-month">/monthly</span></p>
+                <button class="add-to-cart">Add To Cart</button>
+              </div>
+              <div class="card" id="sand">
+                <div class="badge">Sand</div>
+                <h3>4+ Slots | 2GB RAM</h3>
+                <p class="original-price">$7.99 USD</p>
+                <p class="discounted-price" data-monthly="5.99">$5.99 USD <span class="per-month">/monthly</span></p>
+                <button class="add-to-cart">Add To Cart</button>
+              </div>
+              <div class="card popular" id="cobblestone">
+                <div class="badge">Cobblestone</div>
+                <h3>6+ Slots | 3GB RAM</h3>
+                <p class="original-price">$11.99 USD</p>
+                <p class="discounted-price" data-monthly="8.99">$8.99 USD <span class="per-month">/monthly</span></p>
+                <button class="add-to-cart">Add To Cart</button>
+              </div>
+              <div class="card" id="iron">
+                <div class="badge">Iron</div>
+                <h3>10+ Slots | 4GB RAM</h3>
+                <p class="original-price">$15.99 USD</p>
+                <p class="discounted-price" data-monthly="11.99">$11.99 USD <span class="per-month">/monthly</span></p>
+                <button class="add-to-cart">Add To Cart</button>
+              </div>
+            </div>
+          </div>
+        <div class="footer-info">
+          <p>Included on all servers:</p>
+          <div class="features">
+            <span>DDos Protection</span>
+            <span>Community Tools</span>
+            <span>Plugin Installer</span>
+          </div>
+        </div>
+      </div>  
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Group1-it002 Hosting Service. All rights reserved.</p>
+    </footer>
+    <script src="../js/localStorage.js"></script>
+    <script src="../js/javaPricing.js"></script>
+    <script src="../js/navbar.js"></script>
+</body>
+</html>

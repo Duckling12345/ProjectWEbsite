@@ -1,0 +1,76 @@
+body {
+    background-color: purple;
+    font-family: Arial, sans-serif;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column; /* Align logo and container vertically */
+}
+
+img {
+    width: 100px; /* Set logo width */
+    margin-bottom: 20px; /* Space below the logo */
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 350px; /* Increase width if needed */
+    max-width: 90%; /* Ensure it doesn't exceed the viewport */
+    text-align: center;
+}
+
+
+h2 {
+    margin: 10px 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px; /* Smaller font size */
+}
+
+button {
+    padding: 10px;
+    background-color: purple;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px; /* Smaller font size */
+    width: 100%; /* Button takes the full width of the container */
+}
+
+button:hover {
+    background-color: #5a2e91; /* Darker purple on hover */
+}
+
+p {
+    font-size: 12px; /* Smaller font size for text */
+    margin: 5px 0;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: -10px; /* Adjust positioning if necessary */
+    margin-bottom: 10px; /* Space below the message */
+    display: block; /* Ensure error messages are block elements */
+}
+
+input.error {
+    border: 1px solid red;
+}

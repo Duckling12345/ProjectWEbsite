@@ -1,0 +1,205 @@
+/* General Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000135;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+/* Welcome Section */
+.welcome {
+    background-color: #000135; 
+    color: white; 
+    padding: 2em 1em; 
+    text-align: center; 
+}
+
+img {
+    padding: 5px;
+    width: 100%;
+    max-width: 550px;
+}
+
+/* Features Section */
+.features-section {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 2em;
+    margin-top: 1em; 
+    padding-bottom: 5em;
+}
+
+.features-section ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: right;
+}
+
+.features-section ul li {
+    margin: 0.5em 0;
+}
+
+/* Pricing Container */
+.pricing-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* Hardware and Plan Sections */
+.hardware-section,
+.plan-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #1c1c1c;
+    border-radius: 8px;
+    color: #fff;
+}
+
+/* Hardware Info Styling */
+.hardware-info,
+.free-trial {
+    flex: 1;
+    padding: 15px;
+    margin: 5px;
+    background-color: #292929;
+    border-radius: 8px;
+}
+
+/* Hardware Item Flexbox Styling */
+.hardware-items-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.hardware-item {
+    display: flex;
+    align-items: center;
+    background-color: #1c1c1c;
+    padding: 10px;
+    border-radius: 4px;
+    flex: 1 1 30%;
+    margin-bottom: 10px;
+}
+
+.hardware-item img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.hardware-item span {
+    color: #ddd;
+    font-size: 16px;
+}
+
+/* Plan Section Styling */
+.plan-section {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.plan {
+    flex: 1 1 30%;
+    margin: 10px;
+    padding: 20px;
+    background-color: #292929;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.plan:hover {
+    transform: scale(1.05);
+}
+
+.plan h4 {
+    margin-bottom: 10px;
+    color: #ffc107;
+}
+
+.plan p {
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.plan ul {
+    list-style: none;
+    padding: 0;
+}
+
+.plan ul li {
+    margin: 5px 0;
+    color: #fff;
+}
+
+/* Section Titles */
+.hardware-section h3,
+.free-trial h3 {
+    color: #ffc107;
+    margin-bottom: 10px;
+}
+
+.our-features {
+    background-color: #000135;
+    padding: 2em 1em;
+    text-align: center;
+}
+
+.features-title{
+    gap: 1.5em;
+    margin: 2em auto 0;; 
+    padding: 0 1em;
+    max-width: 1200px;
+}
+.features-title h2 {
+    font-size: 40px; 
+    margin: 0; 
+    line-height: 1;
+    padding: 0;
+    text-align: left; 
+    max-width: 100%;
+    margin-bottom: 1em;
+    color: white;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5em;
+    margin: 0 auto;
+    padding: 0 1em;
+    max-width: 1200px; 
+}
+
+.feature {
+    text-align: left;
+    padding: 1em;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.feature h3{
+    color: white;
+}
+
+.feature p{
+    color: #666679;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}

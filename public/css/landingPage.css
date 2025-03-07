@@ -1,0 +1,199 @@
+/* Welcome Styling */
+.welcome {
+    background-color: #000135; 
+    color: white; 
+    padding: 2em 1em; 
+    text-align: center; 
+}
+
+.features-section {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 2em;
+    margin-top: 1em; 
+    padding-bottom: 5em;
+}
+
+.features-section ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+}
+
+.features-section ul li {
+    margin: 0.5em 0;
+}
+
+/* Reviews Section styling */
+.reviews-section {
+    background-color: #1e1f33; 
+    padding: 10em 0;
+}
+
+/* Content container */
+.section-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #1f2040;
+    border-radius: 15px;
+    padding: 60px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+.section-content .review-title {
+    font-size: 50px; 
+    margin: 0; 
+    line-height: 1;
+    padding: 0;
+    color: white;
+}
+
+/* Reviews container styling */
+.reviews-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Review box styling */
+.review-box {
+    background-color: #252550;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 25%; /* Adjust width to fit 3 boxes in the container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.review-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+/* Review text */
+.review-box p {
+    color: #ffffff;
+    font-size: 1.1em;
+    margin-top: 10px;
+}
+
+/* Our Features Section styling */
+.our-features {
+    background-color: #000135;
+    padding: 2em 1em;
+    text-align: center;
+}
+
+.features-title{
+    gap: 1.5em;
+    margin: 2em auto 0;; 
+    padding: 0 1em;
+    max-width: 1200px;
+}
+.features-title h2 {
+    font-size: 40px; 
+    margin: 0; 
+    line-height: 1;
+    padding: 0;
+    text-align: left; 
+    max-width: 100%;
+    margin-bottom: 1em;
+    color: white;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5em;
+    margin: 0 auto;
+    padding: 0 1em;
+    max-width: 1200px; 
+}
+
+.feature {
+    text-align: left;
+    padding: 1em;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.feature h3{
+    color: white;
+}
+
+.feature p{
+    color: #666679;
+}
+
+/* Why Use US style */
+.why-use-us {
+    padding: 50px 20px;
+    background-color: #252550;
+    display: flex; 
+    justify-content: center;
+}
+
+/* Grid Container Styles */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* Grid Item Styles */
+.grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-container, .image-container {
+    flex: 1;
+    padding: 20px;
+}
+
+.text-container {
+    text-align: center;
+}
+
+.text-container h3 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: #ffffff;
+}
+
+.text-container p {
+    color: #666679;
+}
+
+/* Image Styles */
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px; /* Rounded corners for images */
+}
+
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}

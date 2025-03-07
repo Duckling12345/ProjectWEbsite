@@ -1,0 +1,163 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Header Styling */
+.header {
+    background-color: #000135; /* Header background */
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 10px; 
+}
+
+.logo {
+    width: 300px;
+    height: 46px;
+    margin-right: 20px;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.menu {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown {
+    position: relative;
+    margin: 0 45px;
+}
+
+.dropbtn {
+    background-color: transparent; /* Transparent background */
+    color: white; /* Text color */
+    border: none;
+    cursor: pointer;
+    font-size: 16px; 
+}
+
+.dropdown-content {
+    display: none; 
+    position: absolute;
+    background-color: transparent; /* Semi-transparent white */
+    min-width: 160px; 
+    z-index: 1;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Border with transparency */
+    border-radius: 8px; /* Rounded corners */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    color: rgb(255, 255, 255); /* Text color in dropdown */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(68, 80, 255, 0.5); /* Lighter transparent on hover */
+}
+
+.login-button {
+    display: inline-block;
+    background-color: transparent; /* Transparent background */
+    color: white; /* Text color */
+    border: none;
+    padding: 10px 20px; 
+    cursor: pointer; 
+    margin-left: 20px;
+    border-radius: 4px; 
+    text-decoration: none;
+    font-size: 16px; 
+    position: relative; /* Added for positioning */
+    z-index: 1; /* Ensure it is above dropdown */
+}
+
+.login-button:hover {
+    background-color: transparent; /* Keep this transparent */
+}
+
+/* Login menu styling */
+.username-dropdown {
+    position: relative;
+    display: inline-block;
+    text-decoration:none;
+    color: #ffffff;
+}
+
+.dropdown-menu-login {
+    display: none; /* Initially hidden */
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    min-width: 100px;
+    z-index: 1; /* Ensure dropdown is on top */
+}
+
+.username-dropdown:hover {
+    background-color: transparent; /* Prevents gray background */
+}
+
+.username-dropdown:hover + .dropdown-menu-login,
+.dropdown-menu-login:hover {
+    display: block; /* Show dropdown on hover */
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Border with transparency */
+    border-radius: 8px; /* Rounded corners */
+}
+
+.dropdown-menu-login a {
+    color: black; /* Text color for dropdown items */
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-menu-login a:hover {
+    background-color: transparent;
+}
+
+
+/* Login menu styling */
+.username-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu-login {
+    display: none; /* Initially hidden */
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    min-width: 100px;
+    z-index: 1;
+}
+
+.username-dropdown:hover + .dropdown-menu-login,
+.dropdown-menu-login:hover {
+    display: block; /* Show dropdown on hover */
+}
+
+.dropdown-menu-login a {
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-menu-login a:hover {
+    background-color: transparent; /* Highlight on hover */
+    background-color: rgba(68, 80, 255, 0.5); /* Lighter transparent on hover */
+}

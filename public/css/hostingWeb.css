@@ -1,0 +1,167 @@
+/* Welcome Styling */
+.welcome {
+    background-color: #000135; 
+    color: white; 
+    padding: 2em 1em; 
+    text-align: center; 
+}
+
+img {
+    padding: 5px;
+    width: 550px;
+  }
+
+.features-section {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 2em;
+    margin-top: 1em; 
+    padding-bottom: 5em;
+}
+
+.features-section ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+}
+
+.features-section ul li {
+    margin: 0.5em 0;
+}
+
+
+/* Pricing */
+.card-container {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #000135;
+    justify-content: center;
+  }
+  
+  .card {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+    text-align: center;
+    flex: 1;
+    position: relative; /* For positioning the indicator */
+    background-color: #ffffff;
+  }
+  
+  .card.popular {
+    border: 2px solid #6c63ff; /* Highlighted border color */
+    border-top: none;
+  }
+  
+  .most-popular-indicator {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #6c63ff; /* Background color for the indicator */
+    color: white;
+    padding: 2px 170px;
+    font-size: 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .title {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+  
+  .description {
+    margin-bottom: 16px;
+    text-align: left;
+    font-size: 10px;
+  }
+  
+  .price {
+    font-size: 14px;
+    text-decoration: line-through;
+    margin-bottom: 4px;
+    text-align: left;
+  }
+  
+  .save {
+    color: #6c63ff; /* Color matching the indicator */
+    font-weight: bold;
+    margin-left: 8px;
+    background: #e6e6ff; /* Light background for contrast */
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  
+  .current-price {
+    color: #6c63ff;
+    font-size: 28px;
+    margin: 16px 0;
+    text-align: left;
+  }
+  
+  .offer {
+    color: #6c63ff;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  
+  .choose-plan {
+    padding: 10px 100px;
+    border: 1px solid #6c63ff;
+    background-color: white;
+    color: #6c63ff;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 16px 0;
+  }
+  
+  .renew-price {
+    color: gray;
+    font-size: 12px;
+    text-align: left;
+  }
+  
+  .feature-list {
+    list-style: none; /* Removes default bullets */
+    padding: 0;
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: left; /* Aligns text to the left */
+  }
+  
+  .feature-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .check-icon {
+    color: green;
+    margin-right: 8px;
+    font-weight: bold;
+  }
+  
+  .highlight {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  
+  
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}   
