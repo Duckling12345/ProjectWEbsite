@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');  // Import fs for reading files
 const bodyParser = require('body-parser');
-const mysql = require('mysql2/promise');
+const { Pool } = require('pg');  // Use PostgreSQL instead of MySQL
 require('dotenv').config();
 
 const app = express();
@@ -16,12 +16,10 @@ app.use(bodyParser.json());
 // Serve static files (CSS, JS, HTML)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Database connection pool
-const pool = mysql.createPool({
-    uri: process.env.JAWSDB_URL,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0,
+// PostgreSQL connection pool
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL, // Securely fetch from environment
+    ssl: { rejectUnauthorized: false } // Required for Render-hosted PostgreSQL
 });
 
 // Route for root URL (/) - Serve the landing page
@@ -35,14 +33,15 @@ app.post('/signup', async (req, res) => {
 
     try {
         // Vulnerable query (SQL Injection)
-        const [userResults] = await pool.query('SELECT * FROM users WHERE username = "' + username + '"');
-        if (userResults.length > 0) {
+        const userResults = await pool.query(`SELECT * FROM users WHERE username = '${username}'`);
+        if (userResults.rows.length > 0) {
             // XSS vulnerability in error message
             return res.status(409).send(`<h3 style="color:red">Username "<script>alert('${username}')</script>" is already in use.</h3>`);
         }
 
         // Password stored in plain text (insecure)
-        await pool.query(`INSERT INTO users (first_name, last_name, contact_number, username, password) VALUES ('${first_name}', '${last_name}', '${contact_number}', '${username}', '${password}')`);
+        await pool.query(`INSERT INTO users (first_name, last_name, contact_number, username, password) 
+                          VALUES ('${first_name}', '${last_name}', '${contact_number}', '${username}', '${password}')`);
 
         // Redirect to the login page after successful signup
         res.redirect('/html/auth.html');
@@ -57,18 +56,18 @@ app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     
     // Vulnerable SQL query (SQL Injection)
-    const sqlQuery = 'SELECT * FROM admins WHERE username = "' + username + '" AND password = "' + password + '"';
+    const sqlQuery = `SELECT * FROM admins WHERE username = '${username}' AND password = '${password}'`;
 
     try {
-        const [results] = await pool.query(sqlQuery);
+        const results = await pool.query(sqlQuery);
        
-        if (results.length === 0) {
+        if (results.rows.length === 0) {
             // XSS vulnerability in error message
             if (username.includes("<script>")) {
                 return res.status(401).json({
                     error: `${username}`
                 });
-            }else {
+            } else {
                 return res.status(401).json({
                     error: `<h3 style="color:red">Wrong Username or Password: </h3>`
                 });
