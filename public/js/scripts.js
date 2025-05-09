@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
         signupForm.style.display = 'none';
         loginForm.style.display = 'block';
     });
+   
+const signupFormElement = signupForm.querySelector('form');
 
    // Handle Signup Form Submission
 signupFormElement.addEventListener('submit', async (e) => {
@@ -55,6 +57,7 @@ signupFormElement.addEventListener('submit', async (e) => {
 
     // Handle Login Form Submission
     const loginFormElement = loginForm.querySelector('form');
+    
     loginFormElement.addEventListener('submit', async (e) => {
         e.preventDefault();
 

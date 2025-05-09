@@ -20,6 +20,11 @@ const pool = new Pool({
     ssl: { rejectUnauthorized: false }
 });
 
+// Brute-force protection
+const loginAttempts = {}; // Track attempts per username
+const MAX_ATTEMPTS = 5;
+const LOCK_DURATION = 5 * 60 * 1000; // 5 minutes
+
 // Whitelist for safe HTML pages
 const allowedPages = ['landingPage.html', 'auth.html'];
 
@@ -49,7 +54,6 @@ app.post('/signup', async (req, res) => {
             [first_name, last_name, contact_number, username, hashedPassword]
         );
 
-        // Send success response in JSON format
         res.status(200).json({ message: 'Signup successful! Redirecting to login.' });
     } catch (error) {
         console.error('Signup error:', error);
@@ -57,41 +61,69 @@ app.post('/signup', async (req, res) => {
     }
 });
 
+// Login Route with brute-force protection
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
+    const now = Date.now();
+
+    // Check if user is locked
+    const attempts = loginAttempts[username];
+    if (attempts && attempts.lockUntil && attempts.lockUntil > now) {
+        const remainingMs = attempts.lockUntil - now;
+        const minutes = Math.floor(remainingMs / 60000);
+        const seconds = Math.floor((remainingMs % 60000) / 1000);
+        return res.status(429).json({ error: `Too many failed attempts. Try again in ${minutes} minute(s) and ${seconds} second(s).` });
+    }
+    
 
     try {
-        // First, check the admins table
+        // Check in admins table
         let result = await pool.query('SELECT * FROM admins WHERE username = $1', [username]);
 
-        // If no user is found in admins, check the users table
+        // If not found in admins, check users table
         if (result.rows.length === 0) {
             result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
         }
 
-        // If no user is found in both tables
+        // No user found
         if (result.rows.length === 0) {
-            return res.status(401).send('Invalid username or password.');
+            recordFailedLogin(username);
+            return res.status(401).json({ error: 'Invalid username or password.' });
         }
 
         const user = result.rows[0];
-
-        // Compare password using bcrypt
         const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (!passwordMatch) {
-            return res.status(401).send('Invalid username or password.');
+            recordFailedLogin(username);
+            return res.status(401).json({ error: 'Invalid username or password.' });
         }
 
-        // Successful login, return response
+        // Login successful – clear failed attempts
+        delete loginAttempts[username];
+
         res.json({ message: `Welcome back, ${username}!` });
 
     } catch (error) {
         console.error('Login error:', error);
-        res.status(500).send('Login failed. Please try again.');
+        res.status(500).json({ error: 'Login failed. Please try again.' });
     }
 });
 
+// Helper: Track failed login attempts
+function recordFailedLogin(username) {
+    const now = Date.now();
+
+    if (!loginAttempts[username]) {
+        loginAttempts[username] = { count: 1, lockUntil: null };
+    } else {
+        loginAttempts[username].count++;
+    }
+
+    if (loginAttempts[username].count >= MAX_ATTEMPTS) {
+        loginAttempts[username].lockUntil = now + LOCK_DURATION;
+    }
+}
 
 // Safe File Viewer
 app.get('/view', (req, res) => {

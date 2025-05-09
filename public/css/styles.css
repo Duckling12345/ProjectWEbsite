@@ -69,8 +69,10 @@ p {
     margin-top: -10px; /* Adjust positioning if necessary */
     margin-bottom: 10px; /* Space below the message */
     display: block; /* Ensure error messages are block elements */
+    font-weight: bold;
 }
 
 input.error {
     border: 1px solid red;
 }
+
