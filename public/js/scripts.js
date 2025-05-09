@@ -16,43 +16,42 @@ document.addEventListener("DOMContentLoaded", () => {
         loginForm.style.display = 'block';
     });
 
-    // Handle Signup Form Submission
-    const signupFormElement = signupForm.querySelector('form');
-    signupFormElement.addEventListener('submit', async (e) => {
-        e.preventDefault();
+   // Handle Signup Form Submission
+signupFormElement.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-        // Gather form data
-        const formData = new FormData(signupFormElement);
-        const data = Object.fromEntries(formData.entries());
+    // Gather form data
+    const formData = new FormData(signupFormElement);
+    const data = Object.fromEntries(formData.entries());
 
-        try {
-            // Send data to server for signup
-            const response = await fetch('/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
+    try {
+        // Send data to server for signup
+        const response = await fetch('/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
 
-            const result = await response.json();
+        const result = await response.json(); // Ensure the response is parsed as JSON
 
-            if (response.status === 409) {
-                // Username already exists
-                alert(result.error);  // Show alert with error message
-            } else if (response.status === 200) {
-                // Successful signup, redirect to login page
-                alert('Signup successful! Redirecting to login.');
-                window.location.href = '/html/auth.html';
-            } else {
-                // Handle other errors
-                alert('An unexpected error occurred.');
-            }
-        } catch (error) {
-            console.error('Signup error:', error);
-            alert('Failed to sign up. Please try again.');
+        if (response.status === 409) {
+            // Username already exists
+            alert(result.error);  // Show alert with error message
+        } else if (response.status === 200) {
+            // Successful signup, redirect to login page
+            alert(result.message);  // Show the success message
+            window.location.href = 'html/auth.html'; // Redirect to login page
+        } else {
+            // Handle other errors
+            alert('An unexpected error occurred.');
         }
-    });
+    } catch (error) {
+        console.error('Signup error:', error);
+        alert('Failed to sign up. Please try again.');
+    }
+});
 
     // Handle Login Form Submission
     const loginFormElement = loginForm.querySelector('form');
@@ -79,14 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('login-error').textContent = '';
 
             if (result.error) {
-                // Inject the error message directly to trigger XSS
-                if(result.error.includes("<script")){
-                    alert(result.error);
-
-
-                }else {
-                document.getElementById('login-error').innerHTML = result.error;
-                }
+                // Prevent XSS: Safely set error message to prevent scripts
+                document.getElementById('login-error').innerText = result.error;
             } else {
                 // Successful login, store username and redirect
                 localStorage.setItem('username', result.message);

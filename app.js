@@ -39,7 +39,7 @@ app.post('/signup', async (req, res) => {
         );
 
         if (userResults.rows.length > 0) {
-            return res.status(409).send('Username is already in use.');
+            return res.status(409).json({ error: 'Username is already in use.' });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -49,50 +49,62 @@ app.post('/signup', async (req, res) => {
             [first_name, last_name, contact_number, username, hashedPassword]
         );
 
-        res.redirect('/html/auth.html');
+        // Send success response in JSON format
+        res.status(200).json({ message: 'Signup successful! Redirecting to login.' });
     } catch (error) {
         console.error('Signup error:', error);
-        res.status(500).send('Signup failed. Please try again.');
+        res.status(500).json({ error: 'Signup failed. Please try again.' });
     }
 });
 
-// Login Route (Secure)
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
     try {
-        const result = await pool.query('SELECT * FROM admins WHERE username = $1', [username]);
+        // First, check the admins table
+        let result = await pool.query('SELECT * FROM admins WHERE username = $1', [username]);
 
+        // If no user is found in admins, check the users table
+        if (result.rows.length === 0) {
+            result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+        }
+
+        // If no user is found in both tables
         if (result.rows.length === 0) {
             return res.status(401).send('Invalid username or password.');
         }
 
         const user = result.rows[0];
+
+        // Compare password using bcrypt
         const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (!passwordMatch) {
             return res.status(401).send('Invalid username or password.');
         }
 
+        // Successful login, return response
         res.json({ message: `Welcome back, ${username}!` });
+
     } catch (error) {
         console.error('Login error:', error);
         res.status(500).send('Login failed. Please try again.');
     }
 });
 
+
 // Safe File Viewer
 app.get('/view', (req, res) => {
     const page = req.query.page;
 
     if (!allowedPages.includes(page)) {
-        return res.status(403).send('Access denied.');
+        return res.status(403).json({ error: 'Access denied.' });
     }
 
     const filePath = path.join(__dirname, 'public', 'html', page);
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
-            return res.status(404).send('File not found.');
+            return res.status(404).json({ error: 'File not found.' });
         }
         res.send(data);
     });
