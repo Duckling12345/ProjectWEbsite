@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // PostgreSQL pool
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: 'postgresql://promise_zxbc_user:QnHnTyfi203ovlhNHVqnjjTTNSZgpGRz@dpg-d0elbjc9c44c7386c5l0-a.oregon-postgres.render.com/promise_zxbc',
     ssl: { rejectUnauthorized: false }
 });
 
