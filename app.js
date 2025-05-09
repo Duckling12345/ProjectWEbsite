@@ -1,106 +1,104 @@
-// Import required modules
 const express = require('express');
 const path = require('path');
-const fs = require('fs');  // Import fs for reading files
+const fs = require('fs');
 const bodyParser = require('body-parser');
-const { Pool } = require('pg');  // Use PostgreSQL instead of MySQL
+const { Pool } = require('pg');
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware to parse incoming requests
+// Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-// Serve static files (CSS, JS, HTML)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// PostgreSQL connection pool
+// PostgreSQL pool
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL, // Securely fetch from environment
-    ssl: { rejectUnauthorized: false } // Required for Render-hosted PostgreSQL
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
 });
 
-// Route for root URL (/) - Serve the landing page
+// Whitelist for safe HTML pages
+const allowedPages = ['landingPage.html', 'auth.html'];
+
+// Serve landing page
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'html', 'landingPage.html'));
 });
 
-// Handle signup form submission
+// Signup Route (Secure)
 app.post('/signup', async (req, res) => {
     const { first_name, last_name, contact_number, username, password } = req.body;
 
     try {
-        // Vulnerable query (SQL Injection)
-        const userResults = await pool.query(`SELECT * FROM users WHERE username = '${username}'`);
+        const userResults = await pool.query(
+            'SELECT * FROM users WHERE username = $1',
+            [username]
+        );
+
         if (userResults.rows.length > 0) {
-            // XSS vulnerability in error message
-            return res.status(409).send(`<h3 style="color:red">Username "<script>alert('${username}')</script>" is already in use.</h3>`);
+            return res.status(409).send('Username is already in use.');
         }
 
-        // Password stored in plain text (insecure)
-        await pool.query(`INSERT INTO users (first_name, last_name, contact_number, username, password) 
-                          VALUES ('${first_name}', '${last_name}', '${contact_number}', '${username}', '${password}')`);
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await pool.query(
+            `INSERT INTO users (first_name, last_name, contact_number, username, password)
+             VALUES ($1, $2, $3, $4, $5)`,
+            [first_name, last_name, contact_number, username, hashedPassword]
+        );
 
-        // Redirect to the login page after successful signup
         res.redirect('/html/auth.html');
     } catch (error) {
-        console.error('Error during signup:', error);
-        res.status(500).send(`<h3 style="color:red">Signup error: <script>alert('XSS')</script></h3>`);
+        console.error('Signup error:', error);
+        res.status(500).send('Signup failed. Please try again.');
     }
 });
 
-// Handle login form submission
+// Login Route (Secure)
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    
-    // Vulnerable SQL query (SQL Injection)
-    const sqlQuery = `SELECT * FROM admins WHERE username = '${username}' AND password = '${password}'`;
 
     try {
-        const results = await pool.query(sqlQuery);
-       
-        if (results.rows.length === 0) {
-            // XSS vulnerability in error message
-            if (username.includes("<script>")) {
-                return res.status(401).json({
-                    error: `${username}`
-                });
-            } else {
-                return res.status(401).json({
-                    error: `<h3 style="color:red">Wrong Username or Password: </h3>`
-                });
-            }
-        } 
+        const result = await pool.query('SELECT * FROM admins WHERE username = $1', [username]);
 
-        // Successful login
-        return res.json({ message: `Welcome back, ${username}!` });
+        if (result.rows.length === 0) {
+            return res.status(401).send('Invalid username or password.');
+        }
+
+        const user = result.rows[0];
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if (!passwordMatch) {
+            return res.status(401).send('Invalid username or password.');
+        }
+
+        res.json({ message: `Welcome back, ${username}!` });
     } catch (error) {
         console.error('Login error:', error);
-        return res.status(500).json({
-            error: `<h3 style="color:red">${error.message}</h3>`
-        });
+        res.status(500).send('Login failed. Please try again.');
     }
 });
 
-// 🚨 Vulnerable LFI Route 🚨
+// Safe File Viewer
 app.get('/view', (req, res) => {
-    const page = req.query.page;  // Get 'page' parameter from the URL
+    const page = req.query.page;
 
-    // Concatenate user input directly into the file path (vulnerable to LFI)
+    if (!allowedPages.includes(page)) {
+        return res.status(403).send('Access denied.');
+    }
+
     const filePath = path.join(__dirname, 'public', 'html', page);
-
-    // Read the file without proper validation or sanitization
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
-            return res.status(404).send('File not found');
+            return res.status(404).send('File not found.');
         }
-        res.send(data);  // Return file content in response
+        res.send(data);
     });
 });
 
-// Start the server
+// Start server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server running at http://localhost:${PORT}`);
 });
