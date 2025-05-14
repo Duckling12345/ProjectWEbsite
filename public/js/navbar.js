@@ -8,8 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
         authButton.innerHTML = `
             <a href="#" class="username-dropdown">${username}</a>
             <div class="dropdown-menu-login">
-                <a href="dashboard.html">Buy</a>
-                <a href="dashboard.html">Dashboard</a>
                 <a href="#" id="logout-button">Logout</a>
             </div>
         `;
