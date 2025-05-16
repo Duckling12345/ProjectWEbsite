@@ -80,14 +80,37 @@
                 // Reset error messages
                 document.getElementById('login-error').textContent = '';
 
-                if (result.error) {
-                    // Prevent XSS: Safely set error message to prevent scripts
+                const loginButton = loginFormElement.querySelector('button[type="submit"]');
+
+                if (response.status === 429) {
+                    document.getElementById('login-error').innerText = result.error;
+                
+                    // Disable button for 5 minutes
+                    loginButton.disabled = true;
+                    loginButton.innerText = 'Locked (5:00)';
+                    
+                    let secondsLeft = 300; // 5 minutes
+                
+                    const interval = setInterval(() => {
+                        secondsLeft--;
+                        const min = Math.floor(secondsLeft / 60);
+                        const sec = secondsLeft % 60;
+                        loginButton.innerText = `Locked (${min}:${sec.toString().padStart(2, '0')})`;
+                
+                        if (secondsLeft <= 0) {
+                            clearInterval(interval);
+                            loginButton.disabled = false;
+                            loginButton.innerText = 'Login';
+                        }
+                    }, 1000);
+                }
+                else if (result.error) {
                     document.getElementById('login-error').innerText = result.error;
                 } else {
-                    // Successful login, store username and redirect
                     localStorage.setItem('username', result.message);
                     window.location.href = '/html/landingPage.html';
                 }
+                
             } catch (error) {
                 console.error('Login error:', error);
                 alert('Login failed. Please try again.');
